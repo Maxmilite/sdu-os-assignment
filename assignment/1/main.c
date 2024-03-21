@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
                 exit(EXIT_FAILURE);
             }
             if (pids[0] == 0) {
-                signal(SIGINT, handler);
+                signal(SIGINT, empty_handler);
                 pause();
                 char* args[2] = {"/bin/ls", NULL};
                 int status = execve("/bin/ls", args, NULL);
@@ -22,6 +22,10 @@ int main(int argc, char* argv[]) {
             }
             int status;
             pids[1] = fork();
+            if (pids[1] < 0) {
+                perror("Error occurred while executing fork()");
+                exit(EXIT_FAILURE);
+            }
             if (pids[1] == 0) {
                 char* args[2] = {"/bin/ps", NULL};
                 int status = execve("/bin/ps", args, NULL);
@@ -30,9 +34,8 @@ int main(int argc, char* argv[]) {
                     return EXIT_FAILURE;
                 }
                 return EXIT_SUCCESS;
-            } else {
-                waitpid(pids[1], &status, 0);
             }
+            waitpid(pids[1], &status, 0);
             kill(pids[0], SIGINT);
             wait(NULL);
             sleep(SLEEP_INTERVAL);

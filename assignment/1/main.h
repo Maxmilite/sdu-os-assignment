@@ -8,4 +8,4 @@
 
 #define SLEEP_INTERVAL 3
 
-void handler(int x) {}
+void empty_handler(int x) {}
