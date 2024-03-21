@@ -7,3 +7,5 @@
 #include <sys/types.h>
 
 #define SLEEP_INTERVAL 3
+
+void handler(int x) {}
