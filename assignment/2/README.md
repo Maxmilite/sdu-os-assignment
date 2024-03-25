@@ -15,7 +15,7 @@ sudo apt-get update && sudo apt-get install gcc make
 执行以下指令即可：
 
 ```bash
-make clean; make && ./main
+make clean; make && ./main <integer x> <integer y>
 ```
 
 使用 Ctrl + C 快捷键退出程序。
